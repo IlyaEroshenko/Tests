@@ -42,3 +42,16 @@ def test_calculate_tax_invalid_tax_rate_below_zero():
 def test_calculate_tax_invalid_tax_rate_after_100():
     with pytest.raises(ValueError):
         calculate_tax(100, 1000)
+
+
+
+
+@pytest.mark.parametrize("price, tax_rate, discount, expected", [(100, 10, 0, 110.0),
+                                                                (100, 10, 10, 99.0),
+                                                                (100, 10, 100, 0.0)])
+def calculate_tex_with_discount(price, tax_rate, discount, expected):
+    assert calculate_tax(price, tax_rate, discount) == expected
+
+
+def calculate_tex_with_no_discount():
+    assert calculate_tax(100, 10) == 110
